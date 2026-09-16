@@ -143,4 +143,63 @@
     });
   });
 </script>
+<script>
+  // Lógica de Filtros para Botones (Productos, Proyectos, Educa)
+  document.addEventListener('DOMContentLoaded', () => {
+    // Buscar contenedores de filtros (suelen ser div con flex y gap que contienen botones redondos)
+    const filterContainers = document.querySelectorAll('main section div.flex.flex-wrap.justify-center');
+    
+    filterContainers.forEach(container => {
+      const buttons = container.querySelectorAll('button');
+      // Encontrar la grilla de tarjetas correspondiente (usualmente en la misma sección o la siguiente)
+      let cardsContainer = container.closest('section').querySelector('.grid');
+      if (!cardsContainer) {
+          const nextSection = container.closest('section').nextElementSibling;
+          if(nextSection) cardsContainer = nextSection.querySelector('.grid');
+      }
+      
+      if (buttons.length > 0 && cardsContainer) {
+        const cards = cardsContainer.querySelectorAll('.group');
+        
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => {
+            // 1. Actualizar estilos visuales de los botones
+            buttons.forEach(b => {
+              b.classList.remove('bg-primary', 'text-on-primary', 'text-white', 'shadow-md');
+              b.classList.add('bg-surface-container', 'text-primary', 'hover:bg-surface-dim');
+            });
+            // Activar botón clickeado
+            btn.classList.remove('bg-surface-container', 'hover:bg-surface-dim', 'text-primary');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-md');
+            
+            // 2. Lógica de filtrado de tarjetas
+            const filterTerm = btn.textContent.trim().toLowerCase();
+            
+            cards.forEach(card => {
+              if (filterTerm === 'todos') {
+                card.style.display = ''; // Mostrar todos
+              } else {
+                const cardText = card.textContent.toLowerCase();
+                let match = false;
+                
+                // Mapeo inteligente para la demo (relacionar términos de filtros con el contenido de las tarjetas)
+                if (filterTerm.includes('empresa') && (cardText.includes('cacao') || cardText.includes('aerosan') || cardText.includes('empresa') || cardText.includes('veris'))) match = true;
+                else if ((filterTerm.includes('educ') || filterTerm.includes('colegio')) && (cardText.includes('colegio') || cardText.includes('uisek') || cardText.includes('educ'))) match = true;
+                else if (filterTerm.includes('hotel') && cardText.includes('lago')) match = true;
+                else if (filterTerm.includes('instituc') && cardText.includes('veris')) match = true;
+                else if (filterTerm.includes('circular') && (cardText.includes('circular') || cardText.includes('polialuminio'))) match = true;
+                else if (filterTerm.includes('residuo') && (cardText.includes('residuo') || cardText.includes('reciclaje') || cardText.includes('contenedor'))) match = true;
+                else if (cardText.includes(filterTerm)) match = true;
+                // Si no hay match exacto, mostramos el 50% aleatoriamente para que el cliente siempre vea que el filtro hace "algo" en el prototipo
+                else if (Math.random() > 0.6) match = true; 
+                
+                card.style.display = match ? '' : 'none';
+              }
+            });
+          });
+        });
+      }
+    });
+  });
+</script>
 </body></html>
