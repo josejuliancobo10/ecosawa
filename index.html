@@ -201,4 +201,22 @@
     reveals.forEach(el => observer.observe(el));
   });
 </script>
+<script>
+  // Highlighting de la página actual en la barra de navegación
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentPath = window.location.pathname.split('/').pop();
+    if (!currentPath || currentPath === '') currentPath = 'index.html'; // default to index for root
+    
+    const navLinks = document.querySelectorAll('header nav a');
+    navLinks.forEach(link => {
+      const linkPath = link.getAttribute('href');
+      if (linkPath === currentPath) {
+        // Añadir estado activo
+        link.classList.add('text-primary', 'font-bold', 'underline', 'decoration-primary', 'decoration-2', 'underline-offset-8');
+        // Remover color gris normal
+        link.classList.remove('text-on-surface-variant');
+      }
+    });
+  });
+</script>
 </body></html>
