@@ -213,8 +213,8 @@
     
     let toastTimeout;
 
-    // Buscar todos los enlaces que tengan href="05-educacion-ambiental-colegios.html" (como los "Leer más")
-    const emptyLinks = document.querySelectorAll('a[href="06-economia-circular-oportunidades.html"]');
+    // Buscar todos los enlaces que tengan href="#" (como los "Leer más")
+    const emptyLinks = document.querySelectorAll('a[href="#"]') ;
     emptyLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
