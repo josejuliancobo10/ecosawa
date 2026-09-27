@@ -219,4 +219,45 @@
     });
   });
 </script>
+<script>
+  // Hacer que las tarjetas enteras sean clickeables
+  document.addEventListener('DOMContentLoaded', () => {
+    const pages = [
+      "01-programa-reciclaje-empresa.html",
+      "02-polialuminio-reciclado.html",
+      "03-codigo-colores-separacion-residuos.html",
+      "04-medir-impacto-ambiental-organizacion.html",
+      "05-educacion-ambiental-colegios.html",
+      "06-economia-circular-oportunidades.html"
+    ];
+    
+    // Tarjetas del Blog (Educa) y Proyectos
+    const cards = document.querySelectorAll('main .grid > .group');
+    cards.forEach((card, index) => {
+      card.style.cursor = 'pointer';
+      
+      // Si estamos en Educa (tiene 6 tarjetas)
+      if (window.location.pathname.includes('code_6') || document.title.toLowerCase().includes('educa')) {
+         if(index < pages.length) {
+            card.addEventListener('click', () => {
+               window.location.href = pages[index];
+            });
+         }
+      } else {
+         // Para otras páginas como Proyectos, mostrar el toast si no hay página real
+         card.addEventListener('click', () => {
+            const toast = document.querySelector('.fixed.bottom-20');
+            if(toast) {
+               toast.classList.remove('opacity-0', 'translate-y-4');
+               toast.classList.add('opacity-100', 'translate-y-0');
+               setTimeout(() => {
+                 toast.classList.remove('opacity-100', 'translate-y-0');
+                 toast.classList.add('opacity-0', 'translate-y-4');
+               }, 3000);
+            }
+         });
+      }
+    });
+  });
+</script>
 </body></html>
