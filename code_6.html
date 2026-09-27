@@ -248,15 +248,12 @@
     const cards = document.querySelectorAll('main .grid > .group');
     cards.forEach((card, index) => {
       card.style.cursor = 'pointer';
-      // Remover cualquier event listener previo clonando el nodo
-      const newCard = card.cloneNode(true);
-      card.parentNode.replaceChild(newCard, card);
       
-      newCard.addEventListener('click', () => {
+      card.onclick = () => {
          if (index < pages.length) {
              window.location.href = pages[index];
          }
-      });
+      };
     });
   });
 </script>
