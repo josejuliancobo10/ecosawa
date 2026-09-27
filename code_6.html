@@ -204,6 +204,7 @@
 </script>
 
 
+
 <script>
   // Manejador de navegación de tarjetas
   document.addEventListener('DOMContentLoaded', () => {
@@ -216,7 +217,9 @@
       "06-economia-circular-oportunidades.html"
     ];
     
-    const isEduca = window.location.pathname.includes('code_6') || document.body.innerHTML.includes('Conocimiento para un futuro');
+    // Solo activar la navegación si estamos en la página de Educa (revisando el texto del H1)
+    const h1Text = document.querySelector('h1') ? document.querySelector('h1').textContent : '';
+    const isEduca = window.location.pathname.includes('code_6') || h1Text.includes('Conocimiento para un futuro');
     const cards = document.querySelectorAll('main .grid > .group');
     
     cards.forEach((card, index) => {
@@ -226,7 +229,6 @@
              window.location.href = pages[index];
          };
       } else {
-         // Quitar el onclick para que no haga nada si no es Educa
          card.onclick = null;
       }
     });
