@@ -234,7 +234,7 @@
   });
 </script>
 <script>
-  // Hacer que las tarjetas enteras sean clickeables
+  // Hacer que las tarjetas enteras sean clickeables (Ecosawa Educa)
   document.addEventListener('DOMContentLoaded', () => {
     const pages = [
       "01-programa-reciclaje-empresa.html",
@@ -245,32 +245,18 @@
       "06-economia-circular-oportunidades.html"
     ];
     
-    // Tarjetas del Blog (Educa) y Proyectos
     const cards = document.querySelectorAll('main .grid > .group');
     cards.forEach((card, index) => {
       card.style.cursor = 'pointer';
+      // Remover cualquier event listener previo clonando el nodo
+      const newCard = card.cloneNode(true);
+      card.parentNode.replaceChild(newCard, card);
       
-      // Si estamos en Educa (tiene 6 tarjetas)
-      if (window.location.pathname.includes('code_6') || document.title.toLowerCase().includes('educa')) {
-         if(index < pages.length) {
-            card.addEventListener('click', () => {
-               window.location.href = pages[index];
-            });
+      newCard.addEventListener('click', () => {
+         if (index < pages.length) {
+             window.location.href = pages[index];
          }
-      } else {
-         // Para otras páginas como Proyectos, mostrar el toast si no hay página real
-         card.addEventListener('click', () => {
-            const toast = document.querySelector('.fixed.bottom-20');
-            if(toast) {
-               toast.classList.remove('opacity-0', 'translate-y-4');
-               toast.classList.add('opacity-100', 'translate-y-0');
-               setTimeout(() => {
-                 toast.classList.remove('opacity-100', 'translate-y-0');
-                 toast.classList.add('opacity-0', 'translate-y-4');
-               }, 3000);
-            }
-         });
-      }
+      });
     });
   });
 </script>
