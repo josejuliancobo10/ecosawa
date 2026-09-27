@@ -3,7 +3,7 @@
 # Leer plantilla de header y footer desde code_6.html
 $template = [System.IO.File]::ReadAllText("c:\Users\Usuario\Desktop\Websites\Ecosawa diseno\code_6.html", [System.Text.Encoding]::UTF8)
 $headerParts = $template -split '<!-- SCROLL ANIMATIONS -->'
-$headerHtml = $headerParts[0] -replace '<main.*?</main>', ''
+$headerHtml = $headerParts[0] -replace '(?s)<main.*?</main>', ''
 $footerHtml = '<!-- SCROLL ANIMATIONS -->' + $headerParts[1]
 
 # Asegurar que el headerHTML termine antes del footer
